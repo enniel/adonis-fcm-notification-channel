@@ -1,5 +1,7 @@
 # Adonis Firebase Notification Channel
 
+[![Build Status](https://travis-ci.org/enniel/adonis-fcm-notification-channel.svg?branch=master)](https://travis-ci.org/enniel/adonis-fcm-notification-channel)
+
 Firebase Notification Channel for [adonis-notifications](https://github.com/enniel/adonis-notifications).
 
 ## Installation
