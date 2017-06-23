@@ -1,6 +1,7 @@
 # Adonis Firebase Notification Channel
 
 [![Build Status](https://travis-ci.org/enniel/adonis-fcm-notification-channel.svg?branch=master)](https://travis-ci.org/enniel/adonis-fcm-notification-channel)
+[![Coverage Status](https://coveralls.io/repos/github/enniel/adonis-fcm-notification-channel/badge.svg?branch=master)](https://coveralls.io/github/enniel/adonis-fcm-notification-channel?branch=master)
 
 Firebase Notification Channel for [adonis-notifications](https://github.com/enniel/adonis-notifications).
 
