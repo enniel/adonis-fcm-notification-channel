@@ -1,11 +1,5 @@
 'use strict'
 
-/**
- * adonis-fcm-notification-channel
- * Copyright(c) 2017 Evgeny Razumov
- * MIT Licensed
- */
-
 const NE = require('node-exceptions')
 const FcmMessage = require('./FcmMessage')
 
@@ -14,10 +8,10 @@ class FcmChannel {
     this.sender = sender
   }
 
-  * send (notifiable, notification) {
+  async send (notifiable, notification) {
     const message = this.getMessage(notifiable, notification)
-    const tokens = yield notifiable.routeNotificationFor('fcm')
-    return yield this.sender.send(message, tokens)
+    const tokens = await notifiable.routeNotificationFor('fcm')
+    return this.sender.send(message, tokens)
   }
 
   getMessage (notifiable, notification) {

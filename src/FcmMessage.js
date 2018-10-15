@@ -1,12 +1,5 @@
 'use strict'
 
-/**
- * adonis-fcm-notification-channel
- * Copyright(c) 2017 Evgeny Razumov
- * MIT Licensed
- */
-
-require('harmony-reflect')
 const Message = require('node-gcm').Message
 const _ = require('lodash')
 

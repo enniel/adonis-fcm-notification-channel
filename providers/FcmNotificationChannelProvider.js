@@ -1,29 +1,27 @@
 'use strict'
 
-/**
- * adonis-fcm-notification-channel
- * Copyright(c) 2017 Evgeny Razumov
- * MIT Licensed
- */
-
-const ServiceProvider = require('adonis-fold').ServiceProvider
+const { ServiceProvider } = require('@adonisjs/fold')
 
 class FcmNotificationChannelProvider extends ServiceProvider {
-  * register () {
-    this.app.bind('Adonis/Notifications/FcmMessage', function () {
+  register () {
+    this.app.bind('Adonis/Notifications/FcmMessage', () => {
       return require('../src/FcmMessage')
     })
-    this.app.singleton('Adonis/Notifications/FcmSender', function (app) {
+    this.app.alias('Adonis/Notifications/FcmMessage', 'FcmMessage')
+    this.app.singleton('Adonis/Notifications/FcmSender', app => {
       const Config = app.use('Adonis/Src/Config')
       const FcmSender = require('../src/FcmSender')
-      return new FcmSender(Config.get('services.fcm.token'), Config.get('services.fcm.requestOptions', {}))
+      const apiKey = Config.get('services.fcm.apiKey')
+      const options = Config.get('services.fcm.requestOptions', {})
+      return new FcmSender(apiKey, options)
     })
+    this.app.alias('Adonis/Notifications/FcmSender', 'FcmSender')
   }
 
-  * boot () {
-    const NotificationManager = this.app.use('Adonis/Notifications/Manager')
-    NotificationManager.extend('fcm', function (app) {
-      const FcmSender = app.use('Adonis/Notifications/FcmSender')
+  boot () {
+    const NotificationManager = this.app.use('Notifications')
+    NotificationManager.extend('fcm', () => {
+      const FcmSender = this.app.use('FcmSender')
       const FcmChannel = require('../src/FcmChannel')
       return new FcmChannel(FcmSender)
     })

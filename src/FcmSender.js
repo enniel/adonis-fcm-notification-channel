@@ -1,11 +1,5 @@
 'use strict'
 
-/**
- * adonis-fcm-notification-channel
- * Copyright(c) 2017 Evgeny Razumov
- * MIT Licensed
- */
-
 const NE = require('node-exceptions')
 const Sender = require('node-gcm').Sender
 
@@ -21,12 +15,15 @@ class FcmSender {
     this.sender = new Sender(apiKey, requestOptions)
   }
 
-  send (message, registrationTokens) {
+  send (message, recipient) {
     return new Promise((resolve, reject) => {
-      this.sender.send(message, { registrationTokens }, (exceptionStatus, response) => {
-        if (exceptionStatus) {
-          const exceptionMessage = exceptionMessages[exceptionStatus] || 'Undefined error'
-          reject(new NE.HttpException(exceptionMessage, exceptionStatus))
+      this.sender.send(message, recipient, (err, response) => {
+        if (err) {
+          if (typeof err === 'number') {
+            const exceptionMessage = exceptionMessages[err] || 'Undefined error'
+            err = new NE.HttpException(exceptionMessage, err)
+          }
+          reject(err)
           return
         }
         resolve(response)

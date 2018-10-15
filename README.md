@@ -18,7 +18,7 @@ or
 $ yarn add adonis-fcm-notification-channel
 ```
 
-2. Register providers inside the your `bootstrap/app.js` file.
+2. Register providers inside the your `start/app.js` file.
 
 ```js
 const providers = [
@@ -32,7 +32,7 @@ const providers = [
 ```js
 ...
 fcm: {
-  token: <YOUR API KEY>,
+  apiKey: <YOUR API KEY>,
   // optional
   requestOptions: {
     proxy: 'http://127.0.0.1:8888',
@@ -55,9 +55,9 @@ const Lucid = use('Lucid')
 class User extends Lucid {
   static get traits () {
     return [
-      'Adonis/Lucid/MorphTrait',
-      'Adonis/Notifications/HasDatabaseNotifications',
-      'Adonis/Notifications/Notifiable'
+      '@provider:Morphable',
+      '@provider:HasDatabaseNotifications',
+      '@provider:Notifiable'
     ]
   }
 
@@ -74,9 +74,9 @@ module.exports = User
 // app/Notifications/FcmNotification.js
 'use strict'
 
-const FcmMessage = use('Adonis/Notifications/FcmMessage')
+const FcmMessage = use('FcmMessage')
 
-class FcmNotification {
+class MyNotification {
   via () {
     return ['fcm']
   }
@@ -103,7 +103,7 @@ class FcmNotification {
   }
 }
 
-module.exports = FcmNotification
+module.exports = MyNotification
 ```
 
 or
@@ -112,9 +112,7 @@ or
 // app/Notifications/FcmNotification.js
 'use strict'
 
-const FcmMessage = use('Adonis/Notifications/FcmMessage')
-
-class FcmNotification {
+class MyNotification {
   via () {
     return ['fcm']
   }
@@ -141,7 +139,7 @@ class FcmNotification {
   }
 }
 
-module.exports = FcmNotification
+module.exports = MyNotification
 ```
 
 ## Credits

@@ -69,8 +69,4 @@ package-lock.json
 # dotenv environment variables file
 .env
 
-# sqlite storage
-test/unit/storage
-
-
 # End of https://www.gitignore.io/api/node
