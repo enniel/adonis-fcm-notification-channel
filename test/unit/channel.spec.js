@@ -5,7 +5,7 @@ const FcmMessage = require('../../src/FcmMessage')
 const FcmChannel = require('../../src/FcmChannel')
 
 test.group('FcmChannel', () => {
-  test('getMessage should return instanceof FcmMessage (from toFcm)', assert => {
+  test('getMessage should return instanceof FcmMessage (from toFcm)', async assert => {
     class FcmNotification {
       toFcm () {
         return new FcmMessage({
@@ -28,11 +28,11 @@ test.group('FcmChannel', () => {
         })
       }
     }
-    const message = (new FcmChannel().getMessage(null, new FcmNotification()))
+    const message = await new FcmChannel().getMessage(null, new FcmNotification())
     assert.instanceOf(message, FcmMessage)
   })
 
-  test('getMessage should return instanceof FcmMessage (from toJSON)', assert => {
+  test('getMessage should return instanceof FcmMessage (from toJSON)', async assert => {
     class FcmNotification {
       toJSON () {
         return {
@@ -55,7 +55,7 @@ test.group('FcmChannel', () => {
         }
       }
     }
-    const message = (new FcmChannel().getMessage(null, new FcmNotification()))
+    const message = await new FcmChannel().getMessage(null, new FcmNotification())
     assert.instanceOf(message, FcmMessage)
   })
 })
