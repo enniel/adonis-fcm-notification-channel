@@ -24,7 +24,6 @@
   "author": "Evgeny Razumov (enniel)",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.11",
     "node-exceptions": "^3.0.0",
     "node-gcm": "^1.0.2"
   },
