@@ -1,6 +1,6 @@
 {
   "name": "adonis-fcm-notification-channel",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The Adonis Firebase Notification Channel.",
   "main": "src/FcmChannel.js",
   "files": [
