@@ -2,6 +2,7 @@
 
 const NE = require('node-exceptions')
 const FcmMessage = require('./FcmMessage')
+const CouldNotSendNotification = require('./CouldNotSendNotification')
 
 class FcmChannel {
   constructor (sender) {
@@ -10,8 +11,14 @@ class FcmChannel {
 
   async send (notifiable, notification) {
     const message = this.getMessage(notifiable, notification)
-    const tokens = await notifiable.routeNotificationFor('fcm')
-    return this.sender.send(message, tokens)
+    let recipient = message.recipient
+    if (!recipient) {
+      recipient = await notifiable.routeNotificationFor('fcm')
+    }
+    if (!recipient) {
+      throw CouldNotSendNotification.missingRecipient()
+    }
+    return this.sender.send(message, recipient)
   }
 
   getMessage (notifiable, notification) {

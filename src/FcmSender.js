@@ -2,6 +2,7 @@
 
 const NE = require('node-exceptions')
 const Sender = require('node-gcm').Sender
+const CouldNotSendNotification = require('./CouldNotSendNotification')
 
 const exceptionMessages = {
   400: 'Invalid JSON',
@@ -12,12 +13,19 @@ const exceptionMessages = {
 
 class FcmSender {
   constructor (apiKey, requestOptions = {}) {
-    this.sender = new Sender(apiKey, requestOptions)
+    this.apiKey = apiKey
+    this.requestOptions = requestOptions
   }
 
   send (message, recipient) {
+    const apiKey = message.apiKey || this.apiKey
+    const requestOptions = message.requestOptions || this.requestOptions
+    if (!apiKey) {
+      throw CouldNotSendNotification.missingApiKey()
+    }
+    const sender = new Sender(apiKey, requestOptions)
     return new Promise((resolve, reject) => {
-      this.sender.send(message, recipient, (err, response) => {
+      sender.send(message, recipient, (err, response) => {
         if (err) {
           if (typeof err === 'number') {
             const exceptionMessage = exceptionMessages[err] || 'Undefined error'
