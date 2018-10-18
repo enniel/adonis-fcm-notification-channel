@@ -159,6 +159,28 @@ class MyNotification {
     message.bodyLocArgs = ['body0', 'body1']
     message.titleLocKey = 'test_title_loc_key'
     message.titleLocArgs = ['title0', 'title1']
+    // you can set up configuration for current notification
+    // using configure method
+    message.configure({
+      apiKey: '<YOUR API KEY>,
+      // optional
+      requestOptions: {
+        proxy: 'http://127.0.0.1:8888',
+        timeout: 5000
+      }
+    })
+    // or setters
+    message
+      .setApiKey('<YOUR API KEY>')
+      .setRequestOptions({
+        proxy: 'http://127.0.0.1:8888',
+        timeout: 5000
+      })
+    message.apiKey = '<YOUR API KEY>'
+    message.requestOptions = {
+      proxy: 'http://127.0.0.1:8888',
+      timeout: 5000
+    }
     return message
   }
 }
