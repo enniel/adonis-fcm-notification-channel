@@ -162,7 +162,7 @@ class MyNotification {
     // you can set up configuration for current notification
     // using configure method
     message.configure({
-      apiKey: '<YOUR API KEY>,
+      apiKey: '<YOUR API KEY>',
       // optional
       requestOptions: {
         proxy: 'http://127.0.0.1:8888',
