@@ -45,6 +45,13 @@ class FcmMessage {
     return this._requestOptions
   }
 
+  configure ({ apiKey, requestOptions }) {
+    this.setApiKey(apiKey)
+    this.setRequestOptions(requestOptions)
+
+    return this
+  }
+
   setRecipient (recipient) {
     this._recipient = recipient
 
